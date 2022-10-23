@@ -11,8 +11,8 @@ namespace AspNetCoreAuthentication.DAL.Repositories.Implementations
 
         public BaseRepository(AuthenticationDbContext dbContext) => _dbSet = dbContext.Set<TEntity>();
 
-        public async Task Add(TEntity entity) => await _dbSet.AddAsync(entity);
+        public async Task AddAsync(TEntity entity) => await _dbSet.AddAsync(entity);
 
-        public async Task<TEntity> GetById(int id) => await _dbSet.FirstOrDefaultAsync(e => e.Id.Equals(id));
+        public async Task<TEntity> GetByIdAsync(long id) => await _dbSet.FirstOrDefaultAsync(e => e.Id.Equals(id));
     }
 }

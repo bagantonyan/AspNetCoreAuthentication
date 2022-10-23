@@ -9,6 +9,7 @@ namespace AspNetCoreAuthentication.BLL.Mappings
         public BLLMappingProfile()
         {
             CreateMap<RegisterUserRequestDTO, User>();
+            CreateMap<User, GetUserDataResponseDTO>();
         }
     }
 }

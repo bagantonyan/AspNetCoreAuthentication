@@ -6,5 +6,6 @@ namespace AspNetCoreAuthentication.BLL.Services.Abstractions
     {
         Task<RegisterUserResponseDTO> RegisterUserAsync(RegisterUserRequestDTO requestDTO);
         Task<LoginUserResponseDTO> LoginUserAsync(LoginUserRequestDTO requestDTO);
+        Task<GetUserDataResponseDTO> GetUserDataAsync(long id);
     }
 }

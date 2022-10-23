@@ -2,12 +2,15 @@
 using AspNetCoreAuthentication.BLL.Models.Users;
 using AspNetCoreAuthentication.BLL.Services.Abstractions;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AspNetCoreAuthentication.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
+    [Route("api/[controller]")]
     public class AccountsController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -21,6 +24,7 @@ namespace AspNetCoreAuthentication.API.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterUserAsync([FromBody] RegisterUserRequestModel requestModel)
         {
@@ -33,10 +37,11 @@ namespace AspNetCoreAuthentication.API.Controllers
 
             if (registerResult.Success)
                 return Ok(registerResult);
-
+            
             return BadRequest(registerResult);
         }
 
+        [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<IActionResult> LoginAsync([FromBody] LoginUserRequestModel requestModel)
         {
@@ -45,12 +50,25 @@ namespace AspNetCoreAuthentication.API.Controllers
 
             var requestDTO = _mapper.Map<LoginUserRequestDTO>(requestModel);
 
-            var result = await _userService.LoginUserAsync(requestDTO);
+            var loginResult = await _userService.LoginUserAsync(requestDTO);
 
-            if (result.Success)
-                return Ok(result);
+            if (loginResult.Success)
+                return Ok(loginResult);
 
-            return BadRequest(result);
+            return BadRequest(loginResult);
+        }
+
+        [HttpGet("GetUserData")]
+        public async Task<IActionResult> GetUserData()
+        {
+            var userId = Convert.ToInt64(HttpContext.User.FindFirstValue("Id"));
+
+            var getUserDataResult = await _userService.GetUserDataAsync(userId);
+
+            if (getUserDataResult.Success)
+                return Ok(getUserDataResult);
+
+            return BadRequest(getUserDataResult);
         }
     }
 }

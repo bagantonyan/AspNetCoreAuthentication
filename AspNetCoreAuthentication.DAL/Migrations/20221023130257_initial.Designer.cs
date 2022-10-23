@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AspNetCoreAuthentication.DAL.Migrations
 {
     [DbContext(typeof(AuthenticationDbContext))]
-    [Migration("20221023105227_initial")]
+    [Migration("20221023130257_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

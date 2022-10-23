@@ -1,10 +1,4 @@
 using AspNetCoreAuthentication.API.Extensions;
-using AspNetCoreAuthentication.API.Mappings;
-using AspNetCoreAuthentication.BLL.Mappings;
-using AspNetCoreAuthentication.BLL.Services.Abstractions;
-using AspNetCoreAuthentication.BLL.Services.Implementations;
-using AspNetCoreAuthentication.DAL.Contexts;
-using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreAuthentication.API
 {
@@ -14,36 +8,13 @@ namespace AspNetCoreAuthentication.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             ConfigurationManager configuration = builder.Configuration;
 
-            builder.Services.AddDbContext<AuthenticationDbContext>(
-                options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
-            builder.Services.AddScoped<IUserService, UserService>();
-
-            builder.Services.ConfigureIdentity();
-            builder.Services.ConfigureAuthentication(configuration);
-
-            builder.Services.AddAutoMapper(config =>
-            {
-                config.AddProfile<BLLMappingProfile>();
-                config.AddProfile<APIMappingProfile>();
-            });
-
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder
-                    .AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader());
-            });
-
+            builder.Services.AddServiceDependencies(configuration);
+            builder.Services.AddCorsExtension();
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.ConfigureSwagger();
 
             var app = builder.Build();
 
@@ -56,7 +27,6 @@ namespace AspNetCoreAuthentication.API
             app.UseHttpsRedirection();
 
             app.UseCors("CorsPolicy");
-
 
             app.UseAuthentication();
             app.UseAuthorization();
