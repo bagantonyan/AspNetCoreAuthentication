@@ -7,7 +7,6 @@ namespace AspNetCoreAuthentication.DAL.Entities.Users
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string PatronymicName { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
         public DateTime? DeletedDate { get; set; }

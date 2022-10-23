@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreAuthentication.API", "AspNetCoreAuthentication.API\AspNetCoreAuthentication.API.csproj", "{CCB4CEF3-3359-40DD-8003-71DCABFCC48E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreAuthentication.API", "AspNetCoreAuthentication.API\AspNetCoreAuthentication.API.csproj", "{CCB4CEF3-3359-40DD-8003-71DCABFCC48E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreAuthentication.DAL", "AspNetCoreAuthentication.DAL\AspNetCoreAuthentication.DAL.csproj", "{7B14F4F7-63F5-4F69-B4A9-DE9ED3DAE6E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreAuthentication.DAL", "AspNetCoreAuthentication.DAL\AspNetCoreAuthentication.DAL.csproj", "{7B14F4F7-63F5-4F69-B4A9-DE9ED3DAE6E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreAuthentication.BLL", "AspNetCoreAuthentication.BLL\AspNetCoreAuthentication.BLL.csproj", "{332204BB-FE5A-44FD-85D7-CB2A1C2F37A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{7B14F4F7-63F5-4F69-B4A9-DE9ED3DAE6E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B14F4F7-63F5-4F69-B4A9-DE9ED3DAE6E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B14F4F7-63F5-4F69-B4A9-DE9ED3DAE6E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{332204BB-FE5A-44FD-85D7-CB2A1C2F37A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{332204BB-FE5A-44FD-85D7-CB2A1C2F37A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{332204BB-FE5A-44FD-85D7-CB2A1C2F37A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{332204BB-FE5A-44FD-85D7-CB2A1C2F37A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

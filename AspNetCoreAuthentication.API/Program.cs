@@ -1,4 +1,8 @@
 using AspNetCoreAuthentication.API.Extensions;
+using AspNetCoreAuthentication.API.Mappings;
+using AspNetCoreAuthentication.BLL.Mappings;
+using AspNetCoreAuthentication.BLL.Services.Abstractions;
+using AspNetCoreAuthentication.BLL.Services.Implementations;
 using AspNetCoreAuthentication.DAL.Contexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,8 +21,25 @@ namespace AspNetCoreAuthentication.API
             builder.Services.AddDbContext<AuthenticationDbContext>(
                 options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
+            builder.Services.AddScoped<IUserService, UserService>();
+
             builder.Services.AddAuthentication();
             builder.Services.ConfigureIdentity();
+
+            builder.Services.AddAutoMapper(config =>
+            {
+                config.AddProfile<BLLMappingProfile>();
+                config.AddProfile<APIMappingProfile>();
+            });
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
@@ -34,8 +55,13 @@ namespace AspNetCoreAuthentication.API
 
             app.UseHttpsRedirection();
 
+            app.UseCors("CorsPolicy");
+
+
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.MigrateDatabase();
 
             app.MapControllers();
 
