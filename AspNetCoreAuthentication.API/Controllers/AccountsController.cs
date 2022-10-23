@@ -36,5 +36,21 @@ namespace AspNetCoreAuthentication.API.Controllers
 
             return BadRequest(registerResult);
         }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> LoginAsync([FromBody] LoginUserRequestModel requestModel)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Some properties are not valid");
+
+            var requestDTO = _mapper.Map<LoginUserRequestDTO>(requestModel);
+
+            var result = await _userService.LoginUserAsync(requestDTO);
+
+            if (result.Success)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using AspNetCoreAuthentication.DAL.Contexts;
 using AspNetCoreAuthentication.DAL.Entities.Users;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace AspNetCoreAuthentication.API.Extensions
 {
@@ -31,6 +34,27 @@ namespace AspNetCoreAuthentication.API.Extensions
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
+            });
+        }
+
+        public static void ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAuthentication(auth =>
+            {
+                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    RequireExpirationTime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidAudience = configuration["JWTSettings:Audience"],
+                    ValidIssuer = configuration["JWTSettings:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWTSettings:Key"]))
+                };
             });
         }
     }

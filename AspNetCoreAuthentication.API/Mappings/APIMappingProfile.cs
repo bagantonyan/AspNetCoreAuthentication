@@ -8,8 +8,8 @@ namespace AspNetCoreAuthentication.API.Mappings
     {
         public APIMappingProfile()
         {
-            CreateMap<RegisterUserRequestModel, RegisterUserRequestDTO >();
-
+            CreateMap<RegisterUserRequestModel, RegisterUserRequestDTO>();
+            CreateMap<LoginUserRequestModel, LoginUserRequestDTO>();
         }
     }
 }

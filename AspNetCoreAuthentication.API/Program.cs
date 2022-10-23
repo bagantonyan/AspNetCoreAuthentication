@@ -23,8 +23,8 @@ namespace AspNetCoreAuthentication.API
 
             builder.Services.AddScoped<IUserService, UserService>();
 
-            builder.Services.AddAuthentication();
             builder.Services.ConfigureIdentity();
+            builder.Services.ConfigureAuthentication(configuration);
 
             builder.Services.AddAutoMapper(config =>
             {
