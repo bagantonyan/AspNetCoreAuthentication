@@ -26,6 +26,8 @@ namespace AspNetCoreAuthentication.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("Register")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RegisterUserAsync([FromBody] RegisterUserRequestModel requestModel)
         {
             if (!ModelState.IsValid)
@@ -43,10 +45,12 @@ namespace AspNetCoreAuthentication.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("Login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> LoginAsync([FromBody] LoginUserRequestModel requestModel)
         {
             if (!ModelState.IsValid)
-                return BadRequest("Some properties are not valid");
+                return BadRequest("Invalid register model");
 
             var requestDTO = _mapper.Map<LoginUserRequestDTO>(requestModel);
 
@@ -59,7 +63,9 @@ namespace AspNetCoreAuthentication.API.Controllers
         }
 
         [HttpGet("GetUserData")]
-        public async Task<IActionResult> GetUserData()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetUserDataAsync()
         {
             var userId = Convert.ToInt64(HttpContext.User.FindFirstValue("Id"));
 
